@@ -15,6 +15,10 @@ const CustData=new Schema({
         type:String,
         required:true
     },
+    remark:{
+        type:String,
+        required:true
+    },
     status:{
         type:Boolean,
         default:false
