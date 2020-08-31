@@ -9,6 +9,13 @@ CustDataRouter.use(bodyparser.json());
 
 CustDataRouter.route('/data')
 .get(auth.verifyUser,(req,res,next)=>{
+    CustData.find()
+    .then((data)=>{
+        res.statusCode=200;
+        res.setHeader('Content-Type','application/json');
+        res.json({status:'success',result:data});
+    },(err)=>console.log(err))
+    .catch((err)=>next(err));
 
 })
 .post(auth.verifyUser,(req,res,next)=>{         //Add new task
