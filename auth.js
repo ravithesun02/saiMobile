@@ -21,7 +21,7 @@ passport.serializeUser(function(user, cb) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_SECRET_KEY,
-    callbackURL: "http://localhost:8000/admin/return"
+    callbackURL: "https://saimobile.herokuapp.com/admin/return"
   },
   function(accessToken, refreshToken, profile, done) {
       console.log(profile);
