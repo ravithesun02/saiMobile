@@ -18,8 +18,7 @@ AdminUserRouter.get('/return',passport.authenticate('google'),(req,res,next)=>{
     let token=auth.getToken({_id:req.user._id});
     console.log(req.user);
     console.log(token);
-    res.cookie('token',token);
-    res.redirect('https://localhost:3000');
+    res.redirect('http://localhost:3000?token='+token);
 
 });
 
