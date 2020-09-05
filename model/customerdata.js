@@ -32,6 +32,8 @@ const CustData=new Schema({
     staff_id:{
         type:String
     }
+},{
+    timestamps:true
 });
 
 module.exports=mongoose.model('CustData',CustData);

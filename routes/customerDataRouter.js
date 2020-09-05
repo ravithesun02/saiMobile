@@ -8,7 +8,7 @@ var CustDataRouter=express.Router();
 CustDataRouter.use(bodyparser.json());
 
 CustDataRouter.route('/data')
-.get(auth.verifyUser,(req,res,next)=>{
+.get(auth.verifyUser,auth.verifyMainAdmin,(req,res,next)=>{
     CustData.find()
     .then((data)=>{
         res.statusCode=200;
@@ -42,6 +42,7 @@ CustDataRouter.route('/data')
     .catch((err)=>next(err));
 })
 .delete(auth.verifyUser,auth.verifyMainAdmin,(req,res,next)=>{
+    console.log(req.body);
     CustData.findByIdAndRemove({_id:req.body._id})
     .then((data)=>{
         res.statusCode=200;
@@ -64,5 +65,25 @@ CustDataRouter.put('/assign',auth.verifyUser,auth.verifyMainAdmin,(req,res,next)
     .catch((err)=>next(err));
 
 });
+
+CustDataRouter.put('/statusUpdate',auth.verifyUser,(req,res,next)=>{
+    CustData.findByIdAndUpdate({_id:req.body._id},{status:req.body.status,cost:req.body.cost})
+    .then((data)=>{
+        res.statusCode=200;
+        res.setHeader('Content-Type','application/json');
+        res.json({status:'success',result:data});
+    },(err)=>console.log(err))
+    .catch((err)=>next(err));
+});
+
+CustDataRouter.get('/userBase',auth.verifyUser,(req,res,next)=>{
+   CustData.find({staff_id:req.user._id})
+   .then((data)=>{
+    res.statusCode=200;
+    res.setHeader('Content-Type','application/json');
+    res.json({status:'success',result:data});
+},(err)=>console.log(err))
+.catch((err)=>next(err));
+})
 
 module.exports=CustDataRouter;
