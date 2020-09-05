@@ -18,7 +18,7 @@ AdminUserRouter.get('/return',passport.authenticate('google'),(req,res,next)=>{
     let token=auth.getToken({_id:req.user._id});
     console.log(req.user);
     console.log(token);
-    res.redirect('http://localhost:3000?token='+token);
+    res.redirect('https://saitools-repairing.vercel.app?token='+token);
 
 });
 
